@@ -14,7 +14,7 @@ The project is divided into three steps which involve mounting and configuring E
 AWS Account with Access Key and Secret Acces Key configured.
 S3 Bucket for project's landing data already created.
 
-# Configuration - Installing Airflow on EC2
+# Configuration
 
 First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing a t2.large or higher for best Docker usage).
 
