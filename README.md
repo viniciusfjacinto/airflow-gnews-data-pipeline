@@ -5,8 +5,8 @@ The project is divided into three steps which involve mounting and configuring E
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Installing Airflow on EC2](#Configuration)
-- [Writing the Python DAG](#dag)
+- [Configuration](#Configuration)
+- [DAG](#dag)
 - [Opening in S3](#s3)
 
 # Requirements
@@ -14,7 +14,7 @@ The project is divided into three steps which involve mounting and configuring E
 AWS Account with Access Key and Secret Acces Key configured.
 S3 Bucket for project's landing data already created.
 
-# Installing Airflow on EC2 - Configuration
+# Configuration
 
 First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing a t2.large or higher for best Docker usage).
 
@@ -226,10 +226,10 @@ with DAG(
 ### Creating dag file in EC2
 
 Then we have to connect again to our EC2 throught 'Connect' and run these commands:
- ```
-  cd dags
-  touch gnews.py
-  copy the script inside the file
-  !w
-  !qa
-```
+ 
+  cd dags<br>
+  touch gnews.py<br>
+  copy the script text inside the file<br>
+  !w<br>
+  !qa<br>
+
