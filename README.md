@@ -1,6 +1,6 @@
-# google-news-data-pipeline
+# Google News Data Pipeline
 A simple coded data pipeline to transfer data from Google News to Amazon S3 while creating a data lake for refining information between layers. All project is built using Apache Airflow and Amazon EC2.
-The project is divided into three steps which involve mounting and configuring EC2 to initialize Airflow, and running the Python script in the cloud to store the results in a bucket
+The project is divided into three steps which involve mounting and configuring EC2 to initialize Airflow, and running the Python script in cloud to store the results in a bucket
 
 ## Table of Contents
 
