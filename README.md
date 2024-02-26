@@ -4,12 +4,10 @@ The project is divided into three steps which involve mounting and configuring E
 
 ## Table of Contents
 
-- [Installing Airflow on EC2](#Introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Requirements](#requirements)
+- [Installing Airflow on EC2](#introduction)
+- [Writing the Python DAG](#dag)
+- [Opening in S3](#s3)
 
 # Requirements
 
