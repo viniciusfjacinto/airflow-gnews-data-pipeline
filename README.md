@@ -4,14 +4,14 @@ The project is divided into three steps which involve mounting and configuring E
 
 ## Table of Contents
 
-- [Installing Airflow on EC2](#introduction)
+- [Installing Airflow on EC2](#Introduction)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Installing Airflow on EC2
+# Installing Airflow on EC2
 
 First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing an t2.large or higher for best Docker usage).
 
@@ -40,7 +40,7 @@ sudo docker run hello-world<br>
 ### To start the Docker service automatically when the instance starts, you can use the following command:<br>
 sudo systemctl enable docker<br>
 
-### Airflow Steps:<br>
+## Airflow Steps:<br>
 
 ### Download docker-compose.yaml from the airflow documentation<br>
 curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.yaml'<br>
@@ -110,4 +110,112 @@ docker compose up<br>
 Go to 'Security' menu in the EC2 console and alter 'Inbound Rules'. Choose 'Custom TCP rule' in the dropdown then you will be able to change the port to 8080.<br>
 Get VM's public url and then put ':8080' at the end of it. You should be able to access Airflow interface.
 
+# Setting environment variables in Airflow
+
+We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them
+
+# Creating the DAG
+
+```
+import datetime as dt
+from datetime import datetime, timedelta
+from airflow.utils.dates import days_ago
+from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
+from airflow.models import Variable
+#from airflow.contrib.operators.slack_webhook_operator import SlackWebhookOperator
+import boto3
+#import awswrangler
+import pandas as pd
+from GoogleNews import GoogleNews
+
+s3_raw_path = Variable.get("s3_raw_path")
+aws_secret_access_key = Variable.get("aws_secret_access_key")
+region = Variable.get("aws_region")
+terms = Variable.get("terms")
+aws_access_key_id = Variable.get("aws_access_key_id")
+
+
+default_args = {
+    'onwer':'viniciusfj',
+     #"on_failure_callback": callback.task_fail_slack_alert,
+     "retries":3,
+     "retry_delay":timedelta(minutes = 5)
+}
+
+# Criando uma instância de uma DAG usando o gerenciador de contexto 'with'
+with DAG(
+    dag_id = 'gnews_raw',                             # Identificador único para a DAG
+    description = 'DAG para baixar os dados do Google News',  # Descrição da DAG
+    default_args = default_args,                               # Aplicando os argumentos padrões definidos anteriormente
+    start_date = dt.datetime.today(),                          # Data de início
+    schedule_interval = timedelta(days=1),                     # Configurando a DAG para ser executada diariamente
+    tags = ['gnews','google','aws']                             # Tags para facilitar a organização e busca da DAG
+) as dag:
+
+    def get_data():
+
+        selected_news_all_terms = []
+
+        for i in terms:
+            googlenews = GoogleNews(period = 'd', lang = 'en')
+            googlenews.clear()
+            googlenews.search(i)
+
+            news = []
+
+            for j in list(range(1,2)):
+                result = googlenews.page_at(j)
+                result = pd.DataFrame(result)
+                result['page'] = j
+                news.append(result)
+
+            selected_news = pd.concat(news)
+
+        selected_news_all_terms.append(selected_news)
+        df = pd.concat(selected_news_all_terms)
+        return df
+    
+    def save_raw(**kwargs):
+        df = kwargs['task_instance'].xcom_pull(task_ids='collect_data')
+        # Creating a connection between Python and AWS S3
+        session = boto3.Session(
+            aws_access_key_id=aws_access_key_id,
+            aws_secret_access_key=aws_secret_access_key,
+            region_name=region
+        )
+
+        s3_client = session.client('s3')
+        
+
+        wr.s3.to_parquet(
+        df=df,
+        path=f"{s3_raw_path}",
+        dataset=True,
+        database=landing, #this will be our raw/landing zone
+        mode = "append", #incremental adding
+        table=google_news,
+        boto3_session = session #here we use the connection created initially
+
+        )
+
+
+
+    # Define the task using the PythonOperator
+    collector = PythonOperator(
+        task_id='collect_data',
+        python_callable=get_data,
+        dag=dag
+    )
+
+    # Define the task using the PythonOperator
+    save_raw = PythonOperator(
+        task_id='save_to_raw',
+        python_callable=save_raw,
+        dag=dag
+    )
+
+    # Define the task dependencies
+    collector >> save_raw
+    ```
 
