@@ -11,9 +11,14 @@ The project is divided into three steps which involve mounting and configuring E
 - [Contributing](#contributing)
 - [License](#license)
 
+# Requirements
+
+AWS Account with Access Key and Secret Acces Key configured.
+S3 Bucket for project's landing data already created.
+
 # Installing Airflow on EC2
 
-First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing an t2.large or higher for best Docker usage).
+First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing a t2.large or higher for best Docker usage).
 
 Then, connect to your VM through 'Connect' in EC2 options and run these commands:
 
@@ -93,7 +98,7 @@ vim requirements.txt<br>
 touch Dockerfile<br>
 vim Dockerfile<br>
   ```
-  FROM apache/airflow:2.7.0
+  FROM apache/airflow:2.8.1
   COPY requirements.txt  .
   RUN pip install -r "requirements.txt"
   ```
