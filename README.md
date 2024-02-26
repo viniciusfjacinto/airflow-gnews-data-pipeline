@@ -5,7 +5,7 @@ The project is divided into three steps which involve mounting and configuring E
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Installing Airflow on EC2](#introduction)
+- [Installing Airflow on EC2](#Configuration)
 - [Writing the Python DAG](#dag)
 - [Opening in S3](#s3)
 
@@ -14,7 +14,7 @@ The project is divided into three steps which involve mounting and configuring E
 AWS Account with Access Key and Secret Acces Key configured.
 S3 Bucket for project's landing data already created.
 
-# Installing Airflow on EC2
+# Configuration - Installing Airflow on EC2
 
 First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing a t2.large or higher for best Docker usage).
 
