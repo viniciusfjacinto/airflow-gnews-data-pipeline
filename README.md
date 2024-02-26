@@ -117,25 +117,26 @@ We will then get our AWS keys, the s3 bucket destination path and the terms we w
 # Creating the DAG
 
 ```
+# Importing required libraries
 import datetime as dt
 from datetime import datetime, timedelta
 from airflow.utils.dates import days_ago
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
-#from airflow.contrib.operators.slack_webhook_operator import SlackWebhookOperator
-import boto3
+#import boto3
 #import awswrangler
 import pandas as pd
 from GoogleNews import GoogleNews
 
+# Retrieving variables from Airflow's Variable Store
 s3_raw_path = Variable.get("s3_raw_path")
 aws_secret_access_key = Variable.get("aws_secret_access_key")
 region = Variable.get("aws_region")
 terms = Variable.get("terms")
 aws_access_key_id = Variable.get("aws_access_key_id")
 
-
+# Default arguments for the DAG
 default_args = {
     'onwer':'viniciusfj',
      #"on_failure_callback": callback.task_fail_slack_alert,
@@ -143,16 +144,17 @@ default_args = {
      "retry_delay":timedelta(minutes = 5)
 }
 
-# Criando uma instância de uma DAG usando o gerenciador de contexto 'with'
+# Creating a DAG instance using the 'with' context manager
 with DAG(
-    dag_id = 'gnews_raw',                             # Identificador único para a DAG
-    description = 'DAG para baixar os dados do Google News',  # Descrição da DAG
-    default_args = default_args,                               # Aplicando os argumentos padrões definidos anteriormente
-    start_date = dt.datetime.today(),                          # Data de início
-    schedule_interval = timedelta(days=1),                     # Configurando a DAG para ser executada diariamente
-    tags = ['gnews','google','aws']                             # Tags para facilitar a organização e busca da DAG
+    dag_id = 'gnews_raw',                             # Unique identifier for the DAG
+    description = 'DAG to download data from Google News',  # Description of the DAG
+    default_args = default_args,                               # Applying the previously defined default arguments
+    start_date = dt.datetime.today(),                          # Start date
+    schedule_interval = timedelta(days=1),                     # Setting the DAG to run daily
+    tags = ['gnews','google','aws']                             # Tags for easy organization and search of the DAG
 ) as dag:
 
+    # Function to retrieve data from Google News
     def get_data():
 
         selected_news_all_terms = []
@@ -176,6 +178,7 @@ with DAG(
         df = pd.concat(selected_news_all_terms)
         return df
     
+    # Function to save retrieved data to AWS S3 in Parquet format
     def save_raw(**kwargs):
         df = kwargs['task_instance'].xcom_pull(task_ids='collect_data')
         # Creating a connection between Python and AWS S3
@@ -187,7 +190,7 @@ with DAG(
 
         s3_client = session.client('s3')
         
-
+        # Writing the DataFrame to Parquet format on S3
         wr.s3.to_parquet(
         df=df,
         path=f"{s3_raw_path}",
@@ -196,19 +199,16 @@ with DAG(
         mode = "append", #incremental adding
         table=google_news,
         boto3_session = session #here we use the connection created initially
-
         )
 
-
-
-    # Define the task using the PythonOperator
+    # Define the task using the PythonOperator to collect data
     collector = PythonOperator(
         task_id='collect_data',
         python_callable=get_data,
         dag=dag
     )
 
-    # Define the task using the PythonOperator
+    # Define the task using the PythonOperator to save data to raw zone
     save_raw = PythonOperator(
         task_id='save_to_raw',
         python_callable=save_raw,
@@ -217,6 +217,7 @@ with DAG(
 
     # Define the task dependencies
     collector >> save_raw
+
   ```
 
 ### Creating dag file in EC2
