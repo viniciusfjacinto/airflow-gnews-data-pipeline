@@ -217,5 +217,15 @@ with DAG(
 
     # Define the task dependencies
     collector >> save_raw
-    ```
+  ```
 
+### Creating dag file in EC2
+
+Then we have to connect again to our EC2 throught 'Connect' and run these commands:
+ ```
+  cd dags
+  touch gnews.py
+  copy the script inside the file
+  !w
+  !qa
+```
