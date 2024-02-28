@@ -10,7 +10,7 @@ The project is divided into three steps which involve mounting and configuring E
 - [EC2-Configuration](#EC2-Configuration)
 - [Airflow-Configuration](#Airflow-Configuration)
 - [DAG](#dag)
-- [Opening in S3](#s3)
+- [Querying-Results](#querying-results)
 
 # Requirements
 
@@ -25,32 +25,46 @@ Then, connect to your VM through 'Connect' in EC2 options and run these commands
 
 
 ### Update Linux<br>
+```
 sudo yum update
+```
 
 ### Install Python and Pip<br>
-sudo yum install pip<br>
-sudo yum install python3<br>
+```
+sudo yum install pip
+sudo yum install python3
+```
 
 ### Install Docker<br>
-sudo yum install docker -y<br>
+```
+sudo yum install docker -y
+```
 
 ### Install Docker-Compose latest version<br>
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose<br>
-sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose<br>
-sudo chmod +x /usr/bin/docker-compose<br>
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
+sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo chmod +x /usr/bin/docker-compose
+```
 
 ### Once you have started the Docker service, you can verify that it is running by running the following command in your terminal:<br>
-sudo systemctl start docker<br>
-sudo docker run hello-world<br>
+
+```
+sudo systemctl start docker
+sudo docker run hello-world
+```
 
 ### To start the Docker service automatically when the instance starts, you can use the following command:<br>
-sudo systemctl enable docker<br>
+```
+sudo systemctl enable docker
+```
 
 ## Airflow-Configuration<br>
 
 ### Download docker-compose.yaml from the airflow documentation<br>
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.yaml'<br>
-
+```
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.yaml'
+```
 ### Edit docker-compose to allow building requirements.txt<br>
 vim docker-compose.yaml<br>
 
@@ -87,8 +101,10 @@ x-airflow-common:
   save with !w and exit with !qa:
 
 ### Create airflow folders and env<br>
-mkdir -p ./dags ./logs ./plugins ./config<br>
-echo -e "AIRFLOW_UID=$(id -u)" > .env<br>
+```
+mkdir -p ./dags ./logs ./plugins ./config
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+```
 
 ### Set Python libraries to install<br>
 vim requirements.txt<br>
