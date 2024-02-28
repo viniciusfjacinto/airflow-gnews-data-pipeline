@@ -53,14 +53,14 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.y
 ### Edit docker-compose to allow building requirements.txt<br>
 vim docker-compose.yaml<br>
 
-  #comment these row (add # at the beginning)<br>
+  comment these row (add # at the beginning)<br>
   ```
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}<br>
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}
 ```
   
-  #uncomment that (remove # from the beginning)<br>
+  uncomment that (remove # from the beginning)<br>
   ```
-  #build: .<br>
+  #build: .
 ```
   It should be like this<br>
  ```
@@ -119,6 +119,9 @@ sudo docker-compose up<br>
 ### Allowing access to Airflow UI<br>
 Go to 'Security' menu in the EC2 console and alter 'Inbound Rules'. Choose 'Custom TCP rule' in the dropdown then you will be able to change the port to 8080.<br>
 Get VM's public url and then put ':8080' at the end of it. You should be able to access Airflow interface.
+
+![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/9dd5d5bf-235e-4926-b961-8b55e22ad6ba)
+
 
 # Setting environment variables in Airflow
 
