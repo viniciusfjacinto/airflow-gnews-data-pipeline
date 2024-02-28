@@ -82,7 +82,8 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
 ...
 ```
-  #save with !w and exit with !qa:
+  
+  save with !w and exit with !qa:
 
 ### Create airflow folders and env<br>
 mkdir -p ./dags ./logs ./plugins ./config<br>
@@ -96,8 +97,7 @@ vim requirements.txt<br>
   GoogleNews
   boto3
 ```
-!w<br>
-!qa:<br>
+save with :!w and exit with :!qa
 
 ### Set Dockerfile<br>
 vim Dockerfile<br>
@@ -106,8 +106,8 @@ vim Dockerfile<br>
   COPY requirements.txt  .
   RUN pip install -r "requirements.txt"
   ```
-!w<br>
-!qa:<br>
+save with :!w and exit with :!qa
+
 
 ### Install Airflow<br>
 sudo docker-compose up airflow-init<br>
@@ -264,8 +264,8 @@ with DAG(
 
   ```
 
-!w<br>
-!qa<br>
+save with :!w and exit with :!qa
+
 
 Then our DAGs menu should look like this:
 
