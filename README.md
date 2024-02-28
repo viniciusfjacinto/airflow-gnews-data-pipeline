@@ -92,10 +92,10 @@ echo -e "AIRFLOW_UID=$(id -u)" > .env<br>
 ### Set Python libraries to install<br>
 vim requirements.txt<br>
 ```
-  pandas
-  awswrangler
-  GoogleNews
-  boto3
+pandas
+awswrangler
+GoogleNews
+boto3
 ```
 save with :!w and exit with :!qa
 
@@ -160,7 +160,7 @@ For creating and running our DAG we have to connect again to our EC2 throught 'C
   vim gnews_dag.py<br>
   copy the script text inside the file<br>
 
-main.py
+[main.ipynb](https://github.com/viniciusfjacinto/airflow-gnews-data-pipeline/dags/gnews_dag.ipynb)
 
 save with :!w and exit with :!qa
 
