@@ -148,7 +148,8 @@ docker-compose run airflow-worker airflow users create --role Admin --username X
 
 # Setting environment variables in Airflow
 
-We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them in section Admin > Variables <br>
+We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them in section Admin > Variables <br><br>
+
 ![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/de5ccb84-b831-4a77-928a-e32ff41d978a)
 
 
@@ -156,9 +157,11 @@ We will then get our AWS keys, the s3 bucket destination path and the terms we w
 # DAG
 
 For creating and running our DAG we have to connect again to our EC2 throught 'Connect' and run these commands:
- 
+
+ ```
   cd dags<br>
   vim gnews_dag.py<br>
+```
   copy the script text inside the file<br>
 
 [gnews_dag.py](https://github.com/viniciusfjacinto/airflow-gnews-data-pipeline/blob/main/dags/gnews_dag.py)
