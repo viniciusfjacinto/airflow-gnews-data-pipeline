@@ -93,6 +93,7 @@ touch requirements.txt<br>
 vim requirements.txt<br>
 ```
   pandas
+  awswrangler
   GoogleNews
   boto3
 ```
@@ -116,16 +117,42 @@ sudo docker-compose up airflow-init<br>
 ### Run Airflow<br>
 sudo docker-compose up<br>
 
+![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/11dd38a6-5fac-45f6-bedc-a18e377b9078)
+
+
 ### Allowing access to Airflow UI<br>
 Go to 'Security' menu in the EC2 console and alter 'Inbound Rules'. Choose 'Custom TCP rule' in the dropdown then you will be able to change the port to 8080.<br>
-Get VM's public url and then put ':8080' at the end of it. You should be able to access Airflow interface.
 
 ![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/9dd5d5bf-235e-4926-b961-8b55e22ad6ba)
 
+Get VM's public url and then put ':8080' at the end of it. You should be able to access Airflow interface.<br>
+
+For example, access link should be: <br>
+```ec2-100-25-47-181.compute-1.amazonaws.com:8080```
+
+Then you can log in Airflow using <br>
+```
+User: airflow 
+Password: airflow
+```
+
+### Security
+It's important that you create a new user with a more secure password after launching Airflow for the first time in EC2 oterwhise your machine and your data engineering infrastructure can be easily hacked.<br>
+Go to Security > List Users and create a new Admin users<br>
+Set 'airflow' user as inactive<br>
+In this section you can create other users with distinct permissions like Viewers<br>
+
+You can also create user in the console using:
+```
+docker-compose run airflow-worker airflow users create --role Admin --username XXXXXXXX --email XXXXXXXX --firstname XXXXXXX --lastname XXXXXXXX --password XXXXXXXX
+```
 
 # Setting environment variables in Airflow
 
-We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them
+We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them in section Admin > Variables
+![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/de5ccb84-b831-4a77-928a-e32ff41d978a)
+
+
 
 # Creating the DAG
 
@@ -138,7 +165,7 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
 #import boto3
-#import awswrangler
+import awswrangler
 import pandas as pd
 from GoogleNews import GoogleNews
 
