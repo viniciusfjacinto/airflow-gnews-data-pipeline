@@ -53,10 +53,14 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.y
 ### Edit docker-compose to allow building requirements.txt<br>
 vim docker-compose.yaml<br>
   #comment these row (add # at the beginning)<br>
+  ```
   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}<br>
+```
+  
   #uncomment that (remove # from the beginning)<br>
+  ```
   #build: .<br>
-
+```
   It should be like this<br>
  ```
 ...
@@ -106,7 +110,7 @@ vim Dockerfile<br>
 !qa:<br>
 
 ### Install Airflow<br>
-docker compose up airflow-init<br>
+sudo docker-compose up airflow-init<br>
 
 ### Run Airflow<br>
 docker compose up<br>
