@@ -160,7 +160,7 @@ For creating and running our DAG we have to connect again to our EC2 throught 'C
   vim gnews_dag.py<br>
   copy the script text inside the file<br>
 
-[main.ipynb](https://github.com/viniciusfjacinto/airflow-gnews-data-pipeline/dags/gnews_dag.py)
+[gnews_dag.py](https://github.com/viniciusfjacinto/airflow-gnews-data-pipeline/blob/main/dags/gnews_dag.py)
 
 save with :!w and exit with :!qa
 
