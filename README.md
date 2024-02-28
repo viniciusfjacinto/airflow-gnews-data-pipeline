@@ -14,7 +14,7 @@ The project is divided into three steps which involve mounting and configuring E
 # Requirements
 
 AWS Account with Access Key and Secret Acces Key configured.
-S3 Bucket for project's landing data already created.
+S3 Bucket for project's landing data already created. Athena database for querying data with name 'landing' created.
 
 # Configuration
 
