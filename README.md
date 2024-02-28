@@ -177,8 +177,8 @@ We will then get our AWS keys, the s3 bucket destination path and the terms we w
 For creating and running our DAG we have to connect again to our EC2 throught 'Connect' and run these commands:
 
  ```
-  cd dags<br>
-  vim gnews_dag.py<br>
+  cd dags
+  vim gnews_dag.py
 ```
   copy the script text inside the file<br>
 
