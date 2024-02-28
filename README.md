@@ -149,7 +149,7 @@ docker-compose run airflow-worker airflow users create --role Admin --username X
 
 # Setting environment variables in Airflow
 
-We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them in section Admin > Variables
+We will then get our AWS keys, the s3 bucket destination path and the terms we want GoogleNews to search and create them in section Admin > Variables <br>
 ![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/de5ccb84-b831-4a77-928a-e32ff41d978a)
 
 
