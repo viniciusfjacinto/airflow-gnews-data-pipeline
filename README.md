@@ -52,6 +52,7 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.y
 
 ### Edit docker-compose to allow building requirements.txt<br>
 vim docker-compose.yaml<br>
+
   #comment these row (add # at the beginning)<br>
   ```
   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.1}<br>
