@@ -7,7 +7,8 @@ The project is divided into three steps which involve mounting and configuring E
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Configuration](#Configuration)
+- [EC2-Configuration](#EC2-Configuration)
+- [Airflow-Configuration](#Airflow-Configuration)
 - [DAG](#dag)
 - [Opening in S3](#s3)
 
@@ -16,7 +17,7 @@ The project is divided into three steps which involve mounting and configuring E
 AWS Account with Access Key and Secret Acces Key configured.
 S3 Bucket for project's landing data already created. Athena database for querying data with name 'landing' created.
 
-# Configuration
+# EC2-Configuration
 
 First step is create our EC2 instance with Amazon Linux in AWS (I recommend choosing a t2.large or higher for best Docker usage).
 
@@ -45,7 +46,7 @@ sudo docker run hello-world<br>
 ### To start the Docker service automatically when the instance starts, you can use the following command:<br>
 sudo systemctl enable docker<br>
 
-## Airflow Steps:<br>
+## Airflow-Configuration<br>
 
 ### Download docker-compose.yaml from the airflow documentation<br>
 curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.yaml'<br>
@@ -152,7 +153,7 @@ We will then get our AWS keys, the s3 bucket destination path and the terms we w
 
 
 
-# Creating the DAG
+# DAG
 
 For creating and running our DAG we have to connect again to our EC2 throught 'Connect' and run these commands:
  
