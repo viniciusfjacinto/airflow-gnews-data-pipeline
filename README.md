@@ -89,7 +89,6 @@ mkdir -p ./dags ./logs ./plugins ./config<br>
 echo -e "AIRFLOW_UID=$(id -u)" > .env<br>
 
 ### Set Python libraries to install<br>
-touch requirements.txt<br>
 vim requirements.txt<br>
 ```
   pandas
@@ -101,7 +100,6 @@ vim requirements.txt<br>
 !qa:<br>
 
 ### Set Dockerfile<br>
-touch Dockerfile<br>
 vim Dockerfile<br>
   ```
   FROM apache/airflow:2.8.1
@@ -156,6 +154,12 @@ We will then get our AWS keys, the s3 bucket destination path and the terms we w
 
 # Creating the DAG
 
+For creating and running our DAG we have to connect again to our EC2 throught 'Connect' and run these commands:
+ 
+  cd dags<br>
+  vim gnews_dag.py<br>
+  copy the script text inside the file<br>
+
 ```
 # Importing required libraries
 import datetime as dt
@@ -164,8 +168,8 @@ from airflow.utils.dates import days_ago
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
-#import boto3
-import awswrangler
+import boto3
+import awswrangler as wr
 import pandas as pd
 from GoogleNews import GoogleNews
 
@@ -206,7 +210,7 @@ with DAG(
 
             news = []
 
-            for j in list(range(1,2)):
+            for j in list(range(1,15)):
                 result = googlenews.page_at(j)
                 result = pd.DataFrame(result)
                 result['page'] = j
@@ -260,13 +264,11 @@ with DAG(
 
   ```
 
-### Creating dag file in EC2
+!w<br>
+!qa<br>
 
-Then we have to connect again to our EC2 throught 'Connect' and run these commands:
- 
-  cd dags<br>
-  touch gnews.py<br>
-  copy the script text inside the file<br>
-  !w<br>
-  !qa<br>
+Then our DAGs menu should look like this:
+
+![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/ba9fcbfa-a78c-4b71-afb2-54f39887cdd4)
+
 
