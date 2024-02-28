@@ -127,11 +127,14 @@ save with :!w and exit with :!qa
 
 
 ### Install Airflow<br>
+```
 sudo docker-compose up airflow-init<br>
+```
 
 ### Run Airflow<br>
+```
 sudo docker-compose up<br>
-
+```
 ![image](https://github.com/viniciusfjacinto/google-news-data-pipeline/assets/87664450/11dd38a6-5fac-45f6-bedc-a18e377b9078)
 
 
