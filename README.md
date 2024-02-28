@@ -114,7 +114,7 @@ vim Dockerfile<br>
 sudo docker-compose up airflow-init<br>
 
 ### Run Airflow<br>
-docker compose up<br>
+sudo docker-compose up<br>
 
 ### Allowing access to Airflow UI<br>
 Go to 'Security' menu in the EC2 console and alter 'Inbound Rules'. Choose 'Custom TCP rule' in the dropdown then you will be able to change the port to 8080.<br>
