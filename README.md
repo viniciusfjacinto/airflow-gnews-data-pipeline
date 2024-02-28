@@ -137,11 +137,10 @@ Password: airflow
 
 ### Security
 It's important that you create a new user with a more secure password after launching Airflow for the first time in EC2 oterwhise your machine and your data engineering infrastructure can be easily hacked.<br>
-Go to Security > List Users and create a new Admin users<br>
-Set 'airflow' user as inactive<br>
-In this section you can create other users with distinct permissions like Viewers<br>
+Go to Security > List Users and create a new Admin user and set 'airflow' user as inactive<br>
+In this section you can also create other users with distinct permissions like Viewers for giving transparency to your data pipelines for stakeholders and other teams<br>
 
-You can also create user in the console using:
+You can also create new users in the EC2 console using:
 ```
 docker-compose run airflow-worker airflow users create --role Admin --username XXXXXXXX --email XXXXXXXX --firstname XXXXXXX --lastname XXXXXXXX --password XXXXXXXX
 ```
