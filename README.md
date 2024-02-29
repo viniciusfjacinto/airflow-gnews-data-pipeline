@@ -9,7 +9,7 @@ The project is divided into three steps which involve mounting and configuring E
 - [Requirements](#requirements)
 - [EC2-Configuration](#EC2-Configuration)
 - [Airflow-Configuration](#Airflow-Configuration)
-- [DAG](#dag)
+- [DAG](#DAG)
 - [Querying-Results](#querying-results)
 
 # Requirements
