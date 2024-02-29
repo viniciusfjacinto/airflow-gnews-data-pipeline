@@ -114,7 +114,7 @@ awswrangler
 GoogleNews
 boto3
 ```
-save with :!w and exit with :!qa
+save with :w! and exit with :qa!
 
 ### Set Dockerfile<br>
 vim Dockerfile<br>
@@ -123,7 +123,7 @@ vim Dockerfile<br>
   COPY requirements.txt  .
   RUN pip install -r "requirements.txt"
   ```
-save with :!w and exit with :!qa
+save with :w! and exit with :qa!
 
 
 ### Install Airflow<br>
@@ -184,7 +184,7 @@ For creating and running our DAG we have to connect again to our EC2 throught 'C
 
 [gnews_dag.py](https://github.com/viniciusfjacinto/airflow-gnews-data-pipeline/blob/main/dags/gnews_dag.py)
 
-save with :!w and exit with :!qa
+save with :w! and exit with :qa!
 
 
 Then our DAGs menu should look like this:
