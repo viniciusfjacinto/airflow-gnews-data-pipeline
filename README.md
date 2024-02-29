@@ -98,7 +98,7 @@ x-airflow-common:
 ...
 ```
   
-  save with !w and exit with !qa:
+  save with :w! and exit with :qa!
 
 ### Create airflow folders and env<br>
 ```
